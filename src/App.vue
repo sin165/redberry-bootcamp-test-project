@@ -1,6 +1,6 @@
 <template>
-  <router-view @loginClick="toggleModal" />
-  <LoginModal v-if="modalVisible" @modalClose="toggleModal" />
+  <router-view @loginClick="toggleModal" @logoutClick="logout" :loggedIn="loggedIn" />
+  <LoginModal v-if="modalVisible" @modalClose="toggleModal" @loginSuccessful="loggedIn = true" />
 </template>
 
 <script>
@@ -13,12 +13,17 @@ export default {
     LoginModal,
   },
   setup() {
+    const loggedIn = ref(!!localStorage.getItem('loggedInEmail'))
     const modalVisible = ref(false)
     const toggleModal = () => {
       modalVisible.value = !modalVisible.value
     }
+    const logout = () => {
+      localStorage.removeItem('loggedInEmail')
+      loggedIn.value = false
+    }
 
-    return { modalVisible, toggleModal }
+    return { loggedIn, modalVisible, toggleModal, logout }
   }
 }
 </script>

@@ -1,20 +1,31 @@
 <template>
   <div class="backdrop">
-    <div class="modal">
+    <form class="modal">
       <h2>შესვლა</h2>
       <label for="email">ელ-ფოსტა</label>
-      <input type="email" name="email" placeholder="example@redberry.ge">
-      <button>შესვლა</button>
+      <input type="email" name="email" placeholder="example@redberry.ge" @focus="error = ''" v-model="email" :class="{ red: error }">
+      <div class="error" v-if="error">
+        <img src="../assets/info-circle.svg" alt="">
+        <span>{{ error }}</span>
+      </div>
+      <button @click.prevent="submit">შესვლა</button>
       <div class="close" @click="$emit('modalClose')">&#10005;</div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'LoginModal',
-    emits: [ 'modalClose' ],
-  }
+import login from '../composables/login.js'
+
+export default {
+  name: 'LoginModal',
+  emits: [ 'modalClose', 'loginSuccessful' ],
+  setup(props, context) {
+    const { email, error, submit } = login(context)
+
+    return { email, error, submit }
+  },
+}
 </script>
 
 <style>
@@ -54,17 +65,31 @@
   width: 100%;
   height: 44px;
   border-radius: 12px;
-  margin: 8px 0 24px 0;
+  margin-top: 8px;
   padding: 12px 16px;
   background-color: #F7F7FF;
-  border: 1.5px solid #5D37F3;
+  border: 1px solid #5D37F3;
   font-size: 14px;
 }
 .modal input:focus {
   outline: none;
+  border-width: 2px;
+}
+.modal input.red {
+  background-color: #FAF2F3;
+  border: 1px solid #EA1919;
+}
+.modal .error {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  color: #EA1919;
+  font-size: 12px;
+  line-height: 20px;
 }
 .modal button {
 width: 100%;
+margin-top: 24px;
 }
 .modal .close {
   position: absolute;

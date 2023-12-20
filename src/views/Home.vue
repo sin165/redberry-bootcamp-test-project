@@ -1,13 +1,18 @@
 <template>
   <Header>
     <div class="buttons">
-      <button @click="$emit('loginClick')">შესვლა</button>
-      <!-- <router-link :to="{ name: 'Add' }"><button>დაამატე ბლოგი</button></router-link> -->
+      <button v-if="!loggedIn" @click="$emit('loginClick')">შესვლა</button>
+      <router-link v-if="loggedIn" :to="{ name: 'Add' }"><button>დაამატე ბლოგი</button></router-link>
+      <button v-if="loggedIn" @click="$emit('logoutClick')">გასვლა</button>
     </div>
   </Header>
   <div class="home">
     <main>
       <Top />
+      <button @click="loadBlogs">load blogs</button>
+      <div v-if="blogs">
+        {{ blogs }}
+      </div>
     </main>
   </div>
 </template>
@@ -15,6 +20,7 @@
 <script>
 import Header from '../components/Header.vue'
 import Top from '../components/Top.vue'
+import getBlogs from '../composables/getBlogs.js'
 
 export default {
   name: 'Home',
@@ -22,8 +28,12 @@ export default {
     Header,
     Top,
   },
-  emits: [ 'loginClick' ],
+  props: [ 'loggedIn' ],
+  emits: [ 'loginClick', 'logoutClick' ],
   setup() {
+    const { blogs, error, loadBlogs } = getBlogs()
+
+    return { blogs, error, loadBlogs}
   },
 }
 </script>
