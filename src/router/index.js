@@ -1,12 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Add from '../views/Add.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
-  }
+    component: Home,
+    props: true,
+  },
+  {
+    path: '/add',
+    name: 'Add',
+    component: Add,
+  },
 ]
 
 const router = createRouter({

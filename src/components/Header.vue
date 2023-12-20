@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <div class="nav">
+    <div class="nav" :class="{ centered: centered }">
       <div class="logo">
         <img src="../assets/logo.svg" alt="redberry logo">
       </div>
@@ -12,6 +12,7 @@
 <script>
 export default {
   name: 'Header',
+  props: [ 'centered' ]
 }
 </script>
 
@@ -30,20 +31,18 @@ nav {
   margin: 0 76px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.nav.centered {
+  justify-content: center;
 }
 .nav .buttons {
   display: flex;
   gap: 10px;
 }
-.nav button {
-  width: 93px;
-  height: 40px;
-  background-color: #5D37F3;
+.nav a {
+  text-decoration: none;
+  display: block;
   color: #FFFFFF;
-  font-weight: 500;
-  font-size: 14px;
-  padding: 10px, 20px, 10px, 20px;
-  border-radius: 8px;
-  border: none;
 }
 </style>

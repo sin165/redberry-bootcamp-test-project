@@ -1,7 +1,8 @@
 <template>
   <Header>
     <div class="buttons">
-      <button>შესვლა</button>
+      <button @click="$emit('loginClick')">შესვლა</button>
+      <!-- <router-link :to="{ name: 'Add' }"><button>დაამატე ბლოგი</button></router-link> -->
     </div>
   </Header>
   <div class="home">
@@ -21,18 +22,13 @@ export default {
     Header,
     Top,
   },
+  emits: [ 'loginClick' ],
   setup() {
   },
 }
 </script>
 
 <style>
-body {
-  background-color: #F3F2FA;
-}
-.nav {
-  justify-content: space-between;
-}
 .home {
   display: flex;
   justify-content: center;
