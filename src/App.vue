@@ -40,11 +40,12 @@ body.add {
   background-color: #FBFAFF;
 }
 button {
-  height: 40px;
   background-color: #5D37F3;
   color: #FFFFFF;
   font-weight: 500;
   font-size: 14px;
+  font-family: 'FiraGO', sans-serif;
+  line-height: 20px;
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
