@@ -17,8 +17,8 @@
           {{ cat.title }}
         </button>
       </div>
-      <div v-if="blogs">
-        {{ blogs }}
+      <div class="blogs">
+        <BlogCard class="card" v-for="blog in blogs" :key="blog.id" :blog="blog"></BlogCard>
       </div>
     </main>
   </div>
@@ -28,6 +28,7 @@
 import { ref } from 'vue'
 import Header from '../components/Header.vue'
 import Top from '../components/Top.vue'
+import BlogCard from '../components/BlogCard.vue'
 import getCategories from '../composables/getCategories'
 import getBlogs from '../composables/getBlogs.js'
 
@@ -36,6 +37,7 @@ export default {
   components: {
     Header,
     Top,
+    BlogCard,
   },
   props: [ 'loggedIn' ],
   emits: [ 'loginClick', 'logoutClick' ],
@@ -81,5 +83,11 @@ button.category {
   border-radius: 30px;
   font-size: 12px;
   line-height: 16px;
+}
+.blogs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 56px 32px;
+  margin-bottom: 66px;
 }
 </style>

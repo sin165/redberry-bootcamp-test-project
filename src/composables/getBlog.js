@@ -1,14 +1,14 @@
 import { ref } from 'vue';
 
-const getBlogs = () => {
-  const blogs = ref([])
+const getBlog = () => {
+  const blog = ref(null)
   const error = ref(null)
 
-  const loadBlogs = async () => {
+  const loadBlog = async id => {
     const token = process.env.VUE_APP_TOKEN
-    const url = process.env.VUE_APP_API_URL + 'blogs'
+    const url = process.env.VUE_APP_API_URL + 'blogs/' + id
     try {
-      let response = await fetch(url, {
+      const response = await fetch(url, {
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -17,17 +17,14 @@ const getBlogs = () => {
         throw Error('no data available')
       }
       const result = await response.json()
-      blogs.value = result.data
-      const now = Date.now()
-      blogs.value = blogs.value.filter(blog => Date.parse(blog.publish_date) < now)
+      blog.value = result
     }
     catch(err) {
       error.value = err.message
       console.log(error.value)
     }
   }
-
-  return { blogs, error, loadBlogs }
+  return { blog, error, loadBlog }
 }
 
-export default getBlogs
+export default getBlog

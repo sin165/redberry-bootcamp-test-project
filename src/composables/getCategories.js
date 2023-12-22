@@ -7,11 +7,11 @@ const getCategories = () => {
   const loadCategories = async () => {
     const url = process.env.VUE_APP_API_URL + 'categories'
     try {
-      let data = await fetch(url)
-      if(!data.ok) {
+      const response = await fetch(url)
+      if(!response.ok) {
         throw Error('no data available')
       }
-      const result = await data.json()
+      const result = await response.json()
       categoriesData.value = result.data
     }
     catch(err) {
