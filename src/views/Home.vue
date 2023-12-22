@@ -13,24 +13,25 @@
         <button v-for="cat in categoriesData" :key="cat.id"
         :style="{ color: cat.text_color, background: cat.background_color }"
         class="category" @click="toggleCategory(cat.id)"
-        >
+        :class="{ selected: selectedCategories.includes(cat.id) }">
           {{ cat.title }}
         </button>
       </div>
       <div class="blogs">
-        <BlogCard class="card" v-for="blog in blogs" :key="blog.id" :blog="blog"></BlogCard>
+        <BlogCard class="card" v-for="blog in filteredBlogs" :key="blog.id" :blog="blog"></BlogCard>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Header from '../components/Header.vue'
 import Top from '../components/Top.vue'
 import BlogCard from '../components/BlogCard.vue'
 import getCategories from '../composables/getCategories'
 import getBlogs from '../composables/getBlogs.js'
+import filterBlogs from '../composables/filterBlogs.js'
 
 export default {
   name: 'Home',
@@ -56,7 +57,9 @@ export default {
       }
     }
 
-    return { blogs, error, categoriesData, categoriesError, selectedCategories, toggleCategory }
+    const filteredBlogs = computed(() => filterBlogs(blogs.value, selectedCategories.value))
+
+    return { filteredBlogs, error, categoriesData, categoriesError, selectedCategories, toggleCategory }
   },
 }
 </script>
@@ -83,6 +86,11 @@ button.category {
   border-radius: 30px;
   font-size: 12px;
   line-height: 16px;
+  box-sizing: border-box;
+  border: 1px solid #00000000;
+}
+button.category.selected {
+  border: 1px solid #000000;
 }
 .blogs {
   display: flex;

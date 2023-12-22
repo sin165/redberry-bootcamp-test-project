@@ -19,7 +19,10 @@ const getBlogs = () => {
       const result = await response.json()
       blogs.value = result.data
       const now = Date.now()
-      blogs.value = blogs.value.filter(blog => Date.parse(blog.publish_date) < now)
+      blogs.value.forEach(blog => {
+        blog.timestamp = Date.parse(blog.publish_date)
+      })
+      blogs.value = blogs.value.filter(blog => blog.timestamp < now)
     }
     catch(err) {
       error.value = err.message
