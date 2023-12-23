@@ -8,7 +8,7 @@ const addBlog = () => {
   const publish_date = ref(null)
   const categories = ref([])
   const email = ref('')
-  const error = ref(null)
+  const errors = ref({})
 
   const send = async () => {
     const token = process.env.VUE_APP_TOKEN
@@ -40,12 +40,12 @@ const addBlog = () => {
       }
     }
     catch(err) {
-      error.value = err.message
-      console.log(error.value)
+      errors.value.general = err.message
+      console.log(errors.value.general)
     }
   }
 
-  return { title, description, image, author, publish_date, categories, email, error, send }
+  return { title, description, image, author, publish_date, categories, email, errors, send }
 }
 
 export default addBlog
