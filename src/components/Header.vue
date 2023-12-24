@@ -1,12 +1,14 @@
 <template>
-  <nav>
-    <div class="nav" :class="{ centered: centered }">
-      <div class="logo">
-        <img src="../assets/logo.svg" alt="redberry logo">
+  <header>
+    <nav>
+      <div class="nav" :class="{ centered: centered }">
+        <router-link class="logo" :to="{ name: 'Home' }">
+          <img src="../assets/logo.svg" alt="redberry logo">
+        </router-link>
+        <slot></slot>
       </div>
-      <slot></slot>
-    </div>
-  </nav>
+    </nav>
+  </header>
 </template>
 
 <script>
@@ -17,6 +19,13 @@ export default {
 </script>
 
 <style>
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 10;
+}
 nav {
   height: 80px;
   width: 100%;

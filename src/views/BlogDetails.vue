@@ -7,10 +7,12 @@
     </div>
   </Header>
   <div class="blog-details">
-    <main>
+    <div class="back-container">
       <router-link class="back" :to="{ name: 'Home' }">
-        <img src="../assets/back.svg" alt="back">
+        <div><img src="../assets/back.svg" alt="back"></div>
       </router-link>
+    </div>
+    <main>
       <BlogCard v-if="blog" class="full" :blog="blog"/>
     </main>
   </div>
@@ -41,19 +43,4 @@ export default {
 </script>
 
 <style>
-.blog-details {
-  display: flex;
-  justify-content: center;
-}
-.blog-details main {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-.blog-details .back {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 </style>

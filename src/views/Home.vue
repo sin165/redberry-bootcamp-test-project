@@ -69,11 +69,6 @@ export default {
   display: flex;
   justify-content: center;
 }
-main {
-  width: 1288px;
-  height: 100%;
-  margin: 0 76px;
-}
 .categories {
   display: flex;
   gap: 12px 24px;

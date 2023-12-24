@@ -27,28 +27,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:400,500,700');
-body {
-  font-family: 'FiraGO', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #F3F2FA;
-}
-body.add {
-  background-color: #FBFAFF;
-}
-button {
-  background-color: #5D37F3;
-  color: #FFFFFF;
-  font-weight: 500;
-  font-size: 14px;
-  font-family: 'FiraGO', sans-serif;
-  line-height: 20px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-</style>
