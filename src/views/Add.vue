@@ -54,14 +54,16 @@
         </div>
       </form>
     </main>
+    <AddBlogSuccess v-if="success" @close="closeSuccessModal"></AddBlogSuccess>
   </div>
 </template>
 
 <script>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, watch } from 'vue'
 import Header from '../components/Header.vue'
 import SelectImage from '../components/form/SelectImage.vue'
 import SelectCategories from '../components/form/SelectCategories.vue'
+import AddBlogSuccess from '../components/form/AddBlogSuccess.vue'
 import addBlog from '../composables/addBlog.js'
 import getCategories from '../composables/getCategories.js'
 import imageFromLocal from '../composables/imageFromLocal.js'
@@ -72,7 +74,8 @@ export default {
     Header,
     SelectImage,
     SelectCategories,
-  },
+    AddBlogSuccess,
+},
   props: [ 'loggedIn' ],
   emits: [ 'loginClick', 'logoutClick' ],
   setup() {
@@ -86,21 +89,30 @@ export default {
 
     const { categoriesData, categoriesError, loadCategories } = getCategories()
     loadCategories()
-
-    const { title, description, image, author, publish_date, categories, email, errors, send } = addBlog()
-
+    const { title, description, image, author, publish_date, categories, email, errors, success, send, clearForm } = addBlog()
     const setImage = img => {
       image.value = img
     }
     const setImageError = err => {
       errors.value.image = err
     }
+    const closeSuccessModal = () => {
+      clearForm()
+      success.value = false
+    }
+
+    watch(title, () => localStorage.setItem('title', title.value))
+    watch(description, () => localStorage.setItem('description', description.value))
+    watch(author, () => localStorage.setItem('author', author.value))
+    watch(publish_date, () => localStorage.setItem('publish_date', publish_date.value))
+    watch(categories, () => localStorage.setItem('categories', categories.value))
+    watch(email, () => localStorage.setItem('email', email.value))
 
     return {
       categoriesData, categoriesError,
       title, description, image, author, publish_date,
-      categories, email, errors, send,
-      setImage, setImageError,
+      categories, email, errors, success, send,
+      setImage, setImageError, closeSuccessModal,
     }
   }
 }
@@ -163,6 +175,7 @@ export default {
   height: 124px;
   display: block;
   resize: vertical;
+  font-family: inherit;
 }
 .add-blog ul {
  margin: 8px 0 0 0;

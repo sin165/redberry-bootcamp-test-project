@@ -1,14 +1,15 @@
 import { ref } from 'vue';
 
 const addBlog = () => {
-  const title = ref('')
-  const description = ref('')
+  const title = ref(localStorage.getItem('title') ?? '')
+  const description = ref(localStorage.getItem('description') ?? '')
   const image = ref(null)
-  const author = ref('')
-  const publish_date = ref(null)
-  const categories = ref([])
-  const email = ref('')
+  const author = ref(localStorage.getItem('author') ?? '')
+  const publish_date = ref(localStorage.getItem('publish_date') ?? null)
+  const categories = ref(localStorage.getItem('categories') ? localStorage.getItem('categories').split(',').map(x => +x) : [])
+  const email = ref(localStorage.getItem('email') ?? '')
   const errors = ref({})
+  const success = ref(false)
 
   const send = async () => {
     const token = process.env.VUE_APP_TOKEN
@@ -38,6 +39,7 @@ const addBlog = () => {
       if(response.status != 204) {
         throw Error('ბლოგის დამატება ვერ მოხერხდა')
       }
+      success.value = true
     }
     catch(err) {
       errors.value.general = err.message
@@ -45,7 +47,18 @@ const addBlog = () => {
     }
   }
 
-  return { title, description, image, author, publish_date, categories, email, errors, send }
+  const clearForm = () => {
+    title.value = ''
+    description.value = ''
+    image.value = null
+    author.value = ''
+    publish_date.value = ''
+    categories.value = []
+    email.value = ''
+    errors.value = {}
+  }
+
+  return { title, description, image, author, publish_date, categories, email, errors, success, send, clearForm }
 }
 
 export default addBlog

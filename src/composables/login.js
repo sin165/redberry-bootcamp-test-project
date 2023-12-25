@@ -3,6 +3,7 @@ import { ref } from 'vue';
 const login = (context) => {
   const email = ref('')
   const error = ref('')
+  const success = ref(false)
 
   const submit = async () => {
     const token = process.env.VUE_APP_TOKEN
@@ -30,7 +31,7 @@ const login = (context) => {
         }
         localStorage.setItem('loggedInEmail', email.value)
         context.emit('loginSuccessful', email.value)
-        context.emit('modalClose')
+        success.value = true
       }
       catch(err) {
         error.value = err.message
@@ -39,7 +40,7 @@ const login = (context) => {
     }
   }
 
-  return { email, error, submit }
+  return { email, error, success, submit }
 }
 
 export default login
