@@ -19,7 +19,7 @@ body.add {
 main {
     width: 1288px;
     height: 100%;
-    margin: 40px 0 76px 0;
+    margin: 40px 0 0 0;
 }
 .blog-details main,
 .add-blog main {
