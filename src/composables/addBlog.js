@@ -1,13 +1,13 @@
 import { ref } from 'vue';
 
 const addBlog = () => {
-  const title = ref(localStorage.getItem('title') ?? '')
-  const description = ref(localStorage.getItem('description') ?? '')
+  const title = ref('')
+  const description = ref('')
   const image = ref(null)
-  const author = ref(localStorage.getItem('author') ?? '')
-  const publish_date = ref(localStorage.getItem('publish_date') ?? null)
-  const categories = ref(localStorage.getItem('categories') ? localStorage.getItem('categories').split(',').map(x => +x) : [])
-  const email = ref(localStorage.getItem('email') ?? '')
+  const author = ref('')
+  const publish_date = ref(null)
+  const categories = ref([])
+  const email = ref('')
   const errors = ref({})
   const success = ref(false)
 

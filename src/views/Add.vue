@@ -15,21 +15,21 @@
             <label for="author">ავტორი *</label>
             <input id="author" type="text" v-model="author" placeholder="შეიყვანეთ ავტორი">
             <ul>
-              <li>მინიმუმ 4 სიმბოლო</li>
-              <li>მინიმუმ 2 სიტყვა</li>
-              <li>მხოლოდ ქართული სიმბოლოები</li>
+              <li :class="{ green: author && !errors.author?.symbols, red: author && errors.author?.symbols }">მინიმუმ 4 სიმბოლო</li>
+              <li :class="{ green: author && !errors.author?.words, red: author && errors.author?.words }">მინიმუმ 2 სიტყვა</li>
+              <li :class="{ green: author && !errors.author?.language, red: author && errors.author?.language }">მხოლოდ ქართული სიმბოლოები</li>
             </ul>
           </div>
           <div class="field">
             <label for="title">სათაური *</label>
             <input id="title" type="text" v-model="title" placeholder="შეიყვანეთ სათაური">
-            <p>მინიმუმ 2 სიმბოლო</p>
+            <p :class="{ green: title && !errors.title, red: title && errors.title }">მინიმუმ 2 სიმბოლო</p>
           </div>
         </div>
         <div class="field description">
           <label for="description">აღწერა *</label>
           <textarea id="description" v-model="description" placeholder="შეიყვანეთ აღწერა"></textarea>
-          <p>მინიმუმ 2 სიმბოლო</p>
+          <p :class="{ green: description && !errors.description, red: description && errors.description }">მინიმუმ 2 სიმბოლო</p>
         </div>
         <div class="container">
           <div class="field">
@@ -50,7 +50,7 @@
           <input id="email" type="email" v-model="email" placeholder="Example@redberry.ge">
         </div>
         <div class="submit">
-          <button class="gray" type="submit" @click.prevent="send">გამოქვეყნება</button>
+          <button :class="{ gray: !valid }" type="submit" @click.prevent="send">გამოქვეყნება</button>
         </div>
       </form>
     </main>
@@ -59,14 +59,15 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, watch } from 'vue'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 import Header from '../components/Header.vue'
 import SelectImage from '../components/form/SelectImage.vue'
 import SelectCategories from '../components/form/SelectCategories.vue'
 import AddBlogSuccess from '../components/form/AddBlogSuccess.vue'
 import addBlog from '../composables/addBlog.js'
 import getCategories from '../composables/getCategories.js'
-import imageFromLocal from '../composables/imageFromLocal.js'
+import inputsFromLocal from '../composables/inputsFromLocal.js'
+import watchers from '../composables/watchers.js'
 
 export default {
   name: 'Add',
@@ -81,38 +82,45 @@ export default {
   setup() {
     onMounted(() => {
       document.body.className = 'add'
-      if(localStorage.getItem('image')) {
-        image.value = imageFromLocal()
-      }
+      inputsFromLocal(image, title, description, author, publish_date, categories, email)
     })
     onUnmounted(() => document.body.className = '')
-
+    
     const { categoriesData, categoriesError, loadCategories } = getCategories()
     loadCategories()
     const { title, description, image, author, publish_date, categories, email, errors, success, send, clearForm } = addBlog()
-    const setImage = img => {
-      image.value = img
-    }
-    const setImageError = err => {
-      errors.value.image = err
-    }
+    const setImage = img => { image.value = img }
+    const setImageError = err => { errors.value.image = err }
     const closeSuccessModal = () => {
       clearForm()
       success.value = false
     }
+    
+    const { watchTitle, watchDescription, watchAuthor, watchPublishDate, watchCategories, watchEmail } = watchers(errors)
+    watch(title, () => watchTitle(title.value))
+    watch(description, () => watchDescription(description.value))
+    watch(author, () => watchAuthor(author.value))
+    watch(publish_date, () => watchPublishDate(publish_date.value))
+    watch(categories, () => watchCategories(categories.value))
+    watch(email, () => watchEmail(email.value))
 
-    watch(title, () => localStorage.setItem('title', title.value))
-    watch(description, () => localStorage.setItem('description', description.value))
-    watch(author, () => localStorage.setItem('author', author.value))
-    watch(publish_date, () => localStorage.setItem('publish_date', publish_date.value))
-    watch(categories, () => localStorage.setItem('categories', categories.value))
-    watch(email, () => localStorage.setItem('email', email.value))
+    const valid = computed(() => {
+      if(!image.value) return false
+      if(!author.value || errors.value.author.symbols || errors.value.author.words || errors.value.author.language) return false
+      if(!title.value || errors.value.title) return false
+      if(!description.value || errors.value.description) return false
+      if(!publish_date.value || errors.value.publish_date) return false
+      if(categories.value.length === 0) return false
+      if(errors.value.email) return false
+      return true
+    })
 
     return {
       categoriesData, categoriesError,
       title, description, image, author, publish_date,
       categories, email, errors, success, send,
       setImage, setImageError, closeSuccessModal,
+      valid,
     }
   }
 }
@@ -203,5 +211,11 @@ export default {
 .add-blog .submit button.gray {
   background-color: #E4E3EB;
   cursor: default;
+}
+.add-blog .red {
+  color: #EA1919;
+}
+.add-blog .green {
+  color: #14D81C;
 }
 </style>
