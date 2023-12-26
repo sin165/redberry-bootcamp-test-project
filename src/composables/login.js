@@ -10,7 +10,7 @@ const login = (context) => {
     const url = process.env.VUE_APP_API_URL + 'login'
 
     if(!email.value.endsWith('@redberry.ge')) {
-      error.value = 'ელ-ფოსტა უნდა მთავრდებოდეს @redberry.ge-ზე'
+      error.value = 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით'
     } else {
       error.value = ''
       const formData = new FormData()

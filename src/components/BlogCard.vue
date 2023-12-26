@@ -68,6 +68,7 @@ export default {
   line-height: 28px;
   font-weight: 400;
   color: #404049;
+  white-space: pre;
 }
 .blog-categories {
   display: flex;

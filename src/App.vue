@@ -19,7 +19,7 @@ export default {
       modalVisible.value = !modalVisible.value
     }
     const logout = () => {
-      localStorage.removeItem('loggedInEmail')
+      localStorage.clear()
       loggedIn.value = false
     }
 

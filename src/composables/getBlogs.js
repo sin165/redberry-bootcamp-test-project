@@ -20,7 +20,7 @@ const getBlogs = () => {
       blogs.value = result.data
       const now = Date.now()
       blogs.value.forEach(blog => {
-        blog.timestamp = Date.parse(blog.publish_date)
+        blog.timestamp = Date.parse(blog.publish_date) - 14400000
       })
       blogs.value = blogs.value.filter(blog => blog.timestamp < now)
     }

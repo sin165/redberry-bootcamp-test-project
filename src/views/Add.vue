@@ -50,7 +50,7 @@
           <input id="email" type="email" v-model="email" placeholder="Example@redberry.ge">
         </div>
         <div class="submit">
-          <button :class="{ gray: !valid }" type="submit" @click.prevent="send">გამოქვეყნება</button>
+          <button :class="{ gray: !valid }" type="submit" @click.prevent="handleSubmit">გამოქვეყნება</button>
         </div>
       </form>
     </main>
@@ -114,11 +114,16 @@ export default {
       if(errors.value.email) return false
       return true
     })
+    const handleSubmit = () => {
+      if(valid.value) {
+        send()
+      }
+    }
 
     return {
       categoriesData, categoriesError,
       title, description, image, author, publish_date,
-      categories, email, errors, success, send,
+      categories, email, errors, success, handleSubmit,
       setImage, setImageError, closeSuccessModal,
       valid,
     }

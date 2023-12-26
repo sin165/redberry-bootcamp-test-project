@@ -13,10 +13,13 @@ const inputsFromLocal = (image, title, description, author, publish_date, catego
     image.value = new File([u8arr], name, {type: fileFormat})
   }
 
+  const d = new Date()
+  const today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate().toString().padStart(2, 0)
+
   title.value = localStorage.getItem('title') ?? ''
   description.value = localStorage.getItem('description') ?? ''
   author.value = localStorage.getItem('author') ?? ''
-  publish_date.value = localStorage.getItem('publish_date') ?? null
+  publish_date.value = localStorage.getItem('publish_date') ?? today
   categories.value = localStorage.getItem('categories') ? localStorage.getItem('categories').split(',').map(x => +x) : []
   email.value = localStorage.getItem('email') ?? ''
 }
