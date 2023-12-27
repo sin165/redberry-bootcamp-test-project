@@ -1,5 +1,5 @@
 <template>
-  <div class="blog">
+  <article class="blog">
     <img :src="blog.image" :alt="blog.title">
     <h3>{{ blog.author }}</h3>
     <h4>
@@ -17,7 +17,7 @@
       <span>სრულად ნახვა</span>
       <img src="../assets/arrow.svg" alt="">
     </router-link>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
   setup(props) {
     const timestamp = Date.parse(props.blog.publish_date)
     const date = new Date(timestamp);
-    const formattedDate = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+    const formattedDate = date.getDate().toString().padStart(2, 0) + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
 
     return { formattedDate }
   }
@@ -68,7 +68,7 @@ export default {
   line-height: 28px;
   font-weight: 400;
   color: #404049;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 .blog-categories {
   display: flex;
@@ -104,7 +104,7 @@ export default {
   height: 20px;
 }
 .blog.full {
-  width: 720px;
+  width: 50vw;
   margin-bottom: 96px;
 }
 .blog.full h3 {

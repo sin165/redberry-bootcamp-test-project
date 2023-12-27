@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import Header from '../components/Header.vue'
 import Top from '../components/Top.vue'
 import BlogCard from '../components/BlogCard.vue'
@@ -43,6 +43,12 @@ export default {
   props: [ 'loggedIn' ],
   emits: [ 'loginClick', 'logoutClick' ],
   setup() {
+    onMounted(() => {
+      if(localStorage.getItem('selectedCategories')) {
+        selectedCategories.value = localStorage.getItem('selectedCategories').split(',').map(x => +x)
+      }
+    })
+
     const { categoriesData, categoriesError, loadCategories } = getCategories()
     const { blogs, error, loadBlogs } = getBlogs()
     loadCategories()
@@ -55,6 +61,7 @@ export default {
       } else {
         selectedCategories.value.push(id)
       }
+      localStorage.setItem('selectedCategories', selectedCategories.value)
     }
 
     const filteredBlogs = computed(() => filterBlogs(blogs.value, selectedCategories.value))
