@@ -1,15 +1,16 @@
 <template>
-  <div>
+  <div class="choose-picture">
     <label>ატვირთეთ ფოტო</label>
     <input type="file" @change="handleFileInputChange" ref="fileInput">
-    <div v-if="!image" class="drag-area" @dragover.prevent="onDragover" @dragleave="onDragleave" @drop.prevent="onDrop">
+    <div v-if="!image" class="drag-area" :class="{ red: errors.image }"
+    @dragover.prevent="onDragover" @dragleave.prevent="onDragleave" @drop.prevent="onDrop">
       <img src="@/assets/folder-add.svg" alt="">
       <p>
         ჩააგდეთ ფაილი აქ
         <span v-if="!isDragging"> ან <span class="choose" @click="fileInput.click()">აირჩიეთ ფაილი</span></span>
       </p>
-      <p class="error" v-if="errors.image">{{ errors.image }}</p>
     </div>
+    <p class="error" v-if="errors.image"><img src="@/assets/info-circle.svg" alt=""><span>{{ errors.image }}</span></p>
     <div v-if="image" class="chosen-image">
       <div>
         <img src="@/assets/gallery.svg" alt="">
@@ -94,12 +95,14 @@ label {
   margin: 0 0 8px 0;
   display: block;
 }
+.choose-picture {
+  margin-bottom: 24px;
+}
 .drag-area {
   height: 180px;
   border-radius: 12px;
   background-color: #F4F3FF;
   border: 1px dashed #85858D;
-  margin-bottom: 24px;
 }
 .drag-area img {
   display: block;
@@ -111,14 +114,18 @@ label {
   line-height: 20px;
   font-weight: 400;
   color: #1A1A1F;
+  margin: 0;
 }
 .drag-area p .choose {
   text-decoration: underline;
   font-weight: 500;
   cursor: pointer;
 }
-.drag-area p.error {
+.error {
   color: #EA1919;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
 }
 input {
   display: none;
@@ -143,5 +150,9 @@ input {
 }
 .chosen-image .delete {
   cursor: pointer;
+}
+.red {
+  border: 1px solid #EA1919;
+  background-color: #FAF2F3;
 }
 </style>

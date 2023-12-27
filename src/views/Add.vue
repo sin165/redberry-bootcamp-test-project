@@ -13,7 +13,9 @@
         <div class="container">
           <div class="field">
             <label for="author">ავტორი *</label>
-            <input id="author" type="text" v-model="author" placeholder="შეიყვანეთ ავტორი">
+            <input id="author" type="text" v-model="author" placeholder="შეიყვანეთ ავტორი"
+            :class="{ green: author && !errors.author?.symbols && !errors.author?.words && !errors.author?.language,
+            red: author && (errors.author?.symbols || errors.author?.words || errors.author?.language) }" >
             <ul>
               <li :class="{ green: author && !errors.author?.symbols, red: author && errors.author?.symbols }">მინიმუმ 4 სიმბოლო</li>
               <li :class="{ green: author && !errors.author?.words, red: author && errors.author?.words }">მინიმუმ 2 სიტყვა</li>
@@ -22,19 +24,21 @@
           </div>
           <div class="field">
             <label for="title">სათაური *</label>
-            <input id="title" type="text" v-model="title" placeholder="შეიყვანეთ სათაური">
+            <input id="title" type="text" v-model="title" placeholder="შეიყვანეთ სათაური"
+            :class="{green: title && !errors.title, red: title && errors.title}">
             <p :class="{ green: title && !errors.title, red: title && errors.title }">მინიმუმ 2 სიმბოლო</p>
           </div>
         </div>
         <div class="field description">
           <label for="description">აღწერა *</label>
-          <textarea id="description" v-model="description" placeholder="შეიყვანეთ აღწერა"></textarea>
+          <textarea id="description" v-model="description" placeholder="შეიყვანეთ აღწერა"
+          :class="{ green: description && !errors.description, red: description && errors.description }"></textarea>
           <p :class="{ green: description && !errors.description, red: description && errors.description }">მინიმუმ 2 სიმბოლო</p>
         </div>
         <div class="container">
           <div class="field">
             <label for="date">გამოქვეყნების თარიღი *</label>
-            <input id="date" type="date" v-model="publish_date">
+            <input id="date" type="date" v-model="publish_date" :class="{ green: publish_date, red: !publish_date }">
           </div>
           <div class="field">
             <label>კატეგორია *</label>
@@ -47,7 +51,12 @@
         </div>
         <div class="field">
           <label for="email">ელ-ფოსტა</label>
-          <input id="email" type="email" v-model="email" placeholder="Example@redberry.ge">
+          <input id="email" type="email" v-model="email" placeholder="Example@redberry.ge"
+          :class="{ green: email && !errors.email, red: errors.email }">
+          <p v-if="errors.email" class="red">
+            <img src="../assets/info-circle.svg" alt="">
+            <span>მეილი უნდა მთავრდებოდეს @redberry.ge-ით</span>
+          </p>
         </div>
         <div class="submit">
           <button :class="{ gray: !valid }" type="submit" @click.prevent="handleSubmit">გამოქვეყნება</button>
@@ -183,12 +192,17 @@ export default {
 .add-blog input,
 .add-blog textarea {
   padding: 12px 16px;
+  outline: none;
 }
 .add-blog textarea {
   height: 124px;
   display: block;
   resize: vertical;
   font-family: inherit;
+}
+.add-blog input:focus,
+.add-blog textarea:focus {
+  border: 1.5px solid #5D37F3;
 }
 .add-blog ul {
  margin: 8px 0 0 0;
@@ -217,10 +231,27 @@ export default {
   background-color: #E4E3EB;
   cursor: default;
 }
-.add-blog .red {
+.add-blog p.red,
+.add-blog li.red {
   color: #EA1919;
 }
-.add-blog .green {
+.add-blog p.green,
+.add-blog li.green {
   color: #14D81C;
+}
+.add-blog input.red,
+.add-blog textarea.red {
+  border: 1px solid #EA1919;
+  background-color: #FAF2F3;
+}
+.add-blog input.green,
+.add-blog textarea.green {
+  border: 1px solid #14D81C;
+  background-color: #F8FFF8;
+}
+#email + p {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="category-select">
+  <div class="category-select" :class="{ expanded: expanded, green: selectedCatData.length }">
     <div v-if="categories.length" class="selected-categories">
       <p v-for="cat in selectedCatData" :for="cat.id"
       :style="{ color: cat.text_color, background: cat.background_color }">
@@ -54,6 +54,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   position: relative;
+}
+.category-select.expanded {
+  border: 1.5px solid #5D37F3;
+}
+.category-select.green {
+  border: 1px solid #14D81C;
+  background-color: #F8FFF8;
 }
 .category-select .text {
   box-sizing: border-box;
