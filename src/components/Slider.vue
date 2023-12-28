@@ -94,6 +94,12 @@ h2 {
   background-color: #5D37F3;
   cursor: pointer;
 }
+.slider-btn:hover {
+  background-color: #512BE7;
+}
+.slider-btn:active {
+  background-color: #4721DD;
+}
 .slider-btn.previous {
   transform: rotate(180deg);
 }

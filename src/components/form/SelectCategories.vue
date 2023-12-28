@@ -57,6 +57,7 @@ export default {
 }
 .category-select.expanded {
   border: 1.5px solid #5D37F3;
+  background-color: #F7F7FF;
 }
 .category-select.green {
   border: 1px solid #14D81C;

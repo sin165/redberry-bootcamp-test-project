@@ -41,6 +41,12 @@ main {
     background-color: #FFFFFF;
     display: block;
 }
+.back:hover {
+    background-color: #D9D8E0;
+}
+.back:active {
+    background-color: #CFCED6;
+}
 .back div {
     width: 44px;
     height: 44px;
@@ -59,6 +65,12 @@ button {
     border-radius: 8px;
     border: none;
     cursor: pointer;
+}
+button:hover {
+    background-color: #512BE7;
+}
+button:active {
+    background-color: #4721DD;
 }
 .backdrop {
     top: 0;
@@ -93,10 +105,21 @@ button {
 }
 .close {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 24px;
-    height: 24px;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
     font-size: 24px;
     cursor: pointer;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+.close:hover {
+    background-color: #F5F4F9;
+}
+.close:active {
+    background-color: #EBEAEF;
 }

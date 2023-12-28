@@ -104,6 +104,9 @@ label {
   background-color: #F4F3FF;
   border: 1px dashed #85858D;
 }
+.drag-area:hover {
+  background-color: #F1EFFB;
+}
 .drag-area img {
   display: block;
   margin: 48px auto 24px auto;
@@ -151,7 +154,7 @@ input {
 .chosen-image .delete {
   cursor: pointer;
 }
-.red {
+.drag-area.red {
   border: 1px solid #EA1919;
   background-color: #FAF2F3;
 }

@@ -191,6 +191,11 @@ export default {
   color: #1A1A1F;
   height: 44px;
 }
+.add-blog input:hover,
+.add-blog textarea:hover,
+.add-blog .category-select:hover {
+  background-color: #F9F9FA;
+}
 .add-blog input,
 .add-blog textarea {
   padding: 12px 16px;
@@ -205,6 +210,7 @@ export default {
 .add-blog input:focus,
 .add-blog textarea:focus {
   border: 1.5px solid #5D37F3;
+  background-color: #F7F7FF;
 }
 .add-blog ul {
  margin: 8px 0 0 0;
