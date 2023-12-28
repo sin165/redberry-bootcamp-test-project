@@ -78,10 +78,11 @@ export default {
 }
 .categories {
   display: flex;
-  gap: 12px 24px;
-  flex-wrap: wrap;
+  gap: 24px;
   justify-content: center;
   margin-bottom: 64px;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 button.category {
   padding: 8px 16px;

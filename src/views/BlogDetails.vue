@@ -7,12 +7,12 @@
     </div>
   </Header>
   <div class="blog-details">
-    <div class="back-container">
-      <router-link class="back" :to="{ name: 'Home' }">
-        <div><img src="../assets/back.svg" alt="back"></div>
-      </router-link>
-    </div>
     <main v-if="!error">
+      <div class="back-container">
+        <router-link class="back" :to="{ name: 'Home' }">
+          <div><img src="../assets/back.svg" alt="back"></div>
+        </router-link>
+      </div>
       <BlogCard v-if="blog" class="full" :blog="blog"/>
       <Slider v-if="blog" :blogs="filteredBlogs" ></Slider>
     </main>

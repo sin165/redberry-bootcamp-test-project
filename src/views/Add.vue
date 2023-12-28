@@ -1,12 +1,12 @@
 <template>
   <Header :centered="true"></Header>
   <div class="add-blog">
-    <div class="back-container">
-      <router-link class="back" :to="{ name: 'Home' }">
-        <div><img src="../assets/back.svg" alt="back"></div>
-      </router-link>
-    </div>
     <main>
+      <div class="back-container">
+        <router-link class="back" :to="{ name: 'Home' }">
+          <div><img src="../assets/back.svg" alt="back"></div>
+        </router-link>
+      </div>
       <form v-if="loggedIn">
         <h1>ბლოგის დამატება</h1>
         <SelectImage :image="image" :errors="errors" @setImage="setImage" @setImageError="setImageError" />
@@ -146,8 +146,9 @@ export default {
   background-color: #E4E3EB;
 }
 .add-blog form {
-  width: 600px;
+  width: 800px;
   margin-bottom: 65px;
+  transform: translate(-80px, 0);
 }
 .add-blog h1 {
   font-size: 32px;
@@ -163,7 +164,7 @@ export default {
 }
 .add-blog .field {
   margin-bottom: 24px;
-  width: 288px;
+  width: 388px;
 }
 .add-blog .field.description {
   width: 100%;
@@ -226,7 +227,7 @@ export default {
   flex-direction: row-reverse;
 }
 .add-blog .submit button {
-  width: 288px;
+  width: 388px;
 }
 .add-blog .submit button.gray {
   background-color: #E4E3EB;

@@ -9,7 +9,7 @@
         </label>
       </p>
     </div>
-    <div class="text" v-else @click="expanded = !expanded">აირჩიეთ კატეგორია</div>
+    <div class="text" v-else>აირჩიეთ კატეგორია</div>
     <div class="expand" @click="expanded = !expanded">
       <img src="@/assets/arrow-down.svg" alt="">
     </div>
@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .category-select .selected-categories {
-  width: 246px;
+  width: 346px;
   height: 100%;
 }
 .category-select {
@@ -115,7 +115,7 @@ export default {
 }
 .selection-window {
   position: absolute;
-  width: 288px;
+  width: 388px;
   box-sizing: border-box;
   top: 46px;
   left: 0;

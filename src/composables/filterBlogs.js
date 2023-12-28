@@ -17,7 +17,7 @@ const filterBlogs = (blogs, selectedCategories) => {
   if(selectedCategories.length > 0) {
     filtered = filtered.filter(blog => blog.matchingCategories > 0)
   }
-  filtered = filtered.sort((a,b) => b.timestamp - a.timestamp)
+  // filtered = filtered.sort((a,b) => b.timestamp - a.timestamp)
   if(selectedCategories.length > 0) {
     filtered = filtered.sort((a,b) => b.matchingCategories - a.matchingCategories)
   }

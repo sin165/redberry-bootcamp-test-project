@@ -14,9 +14,12 @@ const getBlog = () => {
         },
       })
       if(!response.ok) {
-        throw Error('no data available')
+        throw Error('ბლოგი არ მოიძებნა')
       }
       const result = await response.json()
+      if(Date.parse(result.publish_date) - 14400000 > Date.now()) {
+        throw Error('ბლოგი არ მოიძებნა')
+      }
       blog.value = result
     }
     catch(err) {
