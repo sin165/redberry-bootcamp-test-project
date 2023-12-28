@@ -22,13 +22,18 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { onBeforeUpdate, ref } from 'vue';
 
 export default {
   name: 'SelectImage',
   props: [ 'image', 'errors' ],
   emits: [ 'setImage', 'setImageError' ],
   setup(props, context) {
+    onBeforeUpdate(() => {
+      if(!props.image) {
+        clearImage()
+      }
+    })
     const fileInput = ref(null)
     const isDragging = ref(false)
 

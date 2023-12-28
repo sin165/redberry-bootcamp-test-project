@@ -39,6 +39,20 @@ const addBlog = () => {
       if(response.status != 204) {
         throw Error('ბლოგის დამატება ვერ მოხერხდა')
       }
+      title.value = ''
+      description.value = ''
+      image.value = null
+      author.value = ''
+      publish_date.value = ''
+      categories.value = []
+      email.value = ''
+      errors.value = {}
+      localStorage.removeItem('title')
+      localStorage.removeItem('description')
+      localStorage.removeItem('author')
+      localStorage.removeItem('publish_date')
+      localStorage.removeItem('categories')
+      localStorage.removeItem('email')
       success.value = true
     }
     catch(err) {
@@ -47,18 +61,7 @@ const addBlog = () => {
     }
   }
 
-  const clearForm = () => {
-    title.value = ''
-    description.value = ''
-    image.value = null
-    author.value = ''
-    publish_date.value = ''
-    categories.value = []
-    email.value = ''
-    errors.value = {}
-  }
-
-  return { title, description, image, author, publish_date, categories, email, errors, success, send, clearForm }
+  return { title, description, image, author, publish_date, categories, email, errors, success, send }
 }
 
 export default addBlog

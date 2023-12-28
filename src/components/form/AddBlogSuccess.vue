@@ -20,24 +20,11 @@ export default {
   setup(props, context) {
     const router = useRouter()
 
-    const clearLocalStorage = () => {
-      localStorage.removeItem('title')
-      localStorage.removeItem('description')
-      localStorage.removeItem('author')
-      localStorage.removeItem('publish_date')
-      localStorage.removeItem('categories')
-      localStorage.removeItem('email')
-      localStorage.removeItem('image')
-      localStorage.removeItem('imageName')
-    }
-
     const goHome = () => {
-      clearLocalStorage()
       router.push({ name: 'Home' })
     }
 
     const close = () => {
-      clearLocalStorage()
       context.emit('close')
     }
 

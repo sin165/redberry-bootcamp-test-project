@@ -64,7 +64,7 @@
       </form>
       <p v-else>თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება</p>
     </main>
-    <AddBlogSuccess v-if="success" @close="closeSuccessModal"></AddBlogSuccess>
+    <AddBlogSuccess v-if="success" @close="success=false"></AddBlogSuccess>
   </div>
 </template>
 
@@ -98,13 +98,9 @@ export default {
     
     const { categoriesData, categoriesError, loadCategories } = getCategories()
     loadCategories()
-    const { title, description, image, author, publish_date, categories, email, errors, success, send, clearForm } = addBlog()
+    const { title, description, image, author, publish_date, categories, email, errors, success, send } = addBlog()
     const setImage = img => { image.value = img }
     const setImageError = err => { errors.value.image = err }
-    const closeSuccessModal = () => {
-      clearForm()
-      success.value = false
-    }
     
     const { watchTitle, watchDescription, watchAuthor, watchPublishDate, watchCategories, watchEmail } = watchers(errors)
     watch(title, () => watchTitle(title.value))
@@ -134,8 +130,7 @@ export default {
       categoriesData, categoriesError,
       title, description, image, author, publish_date,
       categories, email, errors, success, handleSubmit,
-      setImage, setImageError, closeSuccessModal,
-      valid,
+      setImage, setImageError, valid,
     }
   }
 }
