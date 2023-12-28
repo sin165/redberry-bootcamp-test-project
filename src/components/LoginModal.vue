@@ -1,9 +1,9 @@
 <template>
-  <div class="backdrop" @click.self="$emit('modalClose')">
+  <div class="backdrop" @mousedown.self="$emit('modalClose')">
     <form class="modal" v-if="!success">
       <h2>შესვლა</h2>
       <label for="email">ელ-ფოსტა</label>
-      <input type="email" name="email" placeholder="example@redberry.ge" @focus="error = ''" v-model="email" :class="{ red: error }">
+      <input type="email" name="email" placeholder="example@redberry.ge" v-model="email" :class="{ red: error }">
       <div class="error" v-if="error">
         <img src="../assets/info-circle.svg" alt="">
         <span>{{ error }}</span>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { watch } from 'vue'
 import login from '../composables/login.js'
 
 export default {
@@ -32,6 +33,11 @@ export default {
   emits: [ 'modalClose', 'loginSuccessful' ],
   setup(props, context) {
     const { email, error, success, submit } = login(context)
+    watch(email, () => {
+      if(email.value === '' || /^[a-zA-Z0-9._%+-]+@redberry\.ge$/.test(email.value)) {
+        error.value = ''
+      }
+    })
 
     return { email, error, success, submit }
   },

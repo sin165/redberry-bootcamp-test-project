@@ -9,7 +9,7 @@ const login = (context) => {
     const token = process.env.VUE_APP_TOKEN
     const url = process.env.VUE_APP_API_URL + 'login'
 
-    if(!email.value.endsWith('@redberry.ge')) {
+    if(!/^[a-zA-Z0-9._%+-]+@redberry\.ge$/.test(email.value)) {
       error.value = 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით'
     } else {
       error.value = ''

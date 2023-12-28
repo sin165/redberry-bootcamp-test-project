@@ -12,9 +12,12 @@
         <div><img src="../assets/back.svg" alt="back"></div>
       </router-link>
     </div>
-    <main>
+    <main v-if="!error">
       <BlogCard v-if="blog" class="full" :blog="blog"/>
-      <Slider :blogs="filteredBlogs" ></Slider>
+      <Slider v-if="blog" :blogs="filteredBlogs" ></Slider>
+    </main>
+    <main v-else>
+      <p class="not-found">404 - გვერდი არ მოიძებნა</p>
     </main>
   </div>
 </template>
@@ -50,7 +53,7 @@ export default {
       return filterBlogs(blogs.value, catIDs).filter(blog => blog.id != route.params.id)
     })
 
-    return { blog, filteredBlogs }
+    return { blog, filteredBlogs, error }
   }
 }
 </script>
@@ -59,5 +62,11 @@ export default {
 .blog-details main {
   flex-direction: column;
   align-items: center;
+}
+.blog-details .not-found {
+  color: #85858D;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
 }
 </style>

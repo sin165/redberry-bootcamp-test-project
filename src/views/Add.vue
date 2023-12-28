@@ -7,7 +7,7 @@
       </router-link>
     </div>
     <main>
-      <form>
+      <form v-if="loggedIn">
         <h1>ბლოგის დამატება</h1>
         <SelectImage :image="image" :errors="errors" @setImage="setImage" @setImageError="setImageError" />
         <div class="container">
@@ -62,6 +62,7 @@
           <button :class="{ gray: !valid }" type="submit" @click.prevent="handleSubmit">გამოქვეყნება</button>
         </div>
       </form>
+      <p v-else>თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება</p>
     </main>
     <AddBlogSuccess v-if="success" @close="closeSuccessModal"></AddBlogSuccess>
   </div>
