@@ -39,20 +39,16 @@ const addBlog = () => {
       if(response.status != 204) {
         throw Error('ბლოგის დამატება ვერ მოხერხდა')
       }
+      const d = new Date()
+      const today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate().toString().padStart(2, 0)
       title.value = ''
       description.value = ''
       image.value = null
       author.value = ''
-      publish_date.value = ''
+      publish_date.value = today
       categories.value = []
       email.value = ''
       errors.value = {}
-      localStorage.removeItem('title')
-      localStorage.removeItem('description')
-      localStorage.removeItem('author')
-      localStorage.removeItem('publish_date')
-      localStorage.removeItem('categories')
-      localStorage.removeItem('email')
       success.value = true
     }
     catch(err) {

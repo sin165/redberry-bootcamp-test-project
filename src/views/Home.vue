@@ -79,7 +79,7 @@ export default {
 .categories {
   display: flex;
   gap: 24px;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 64px;
   overflow-x: scroll;
   white-space: nowrap;

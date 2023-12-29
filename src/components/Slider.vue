@@ -18,6 +18,7 @@
         </div>
       </div>
     </div>
+    <p v-if="!blogs.length" class="not-found">მსგავსი სტატიები ვერ მოიძებნა</p>
   </section>
 </template>
 
@@ -128,5 +129,9 @@ h2 {
 @keyframes right {
   0% { transform: translate(-440px, 0) }
   100% { transform: translate(0, 0) }
+}
+.not-found {
+  color: #85858D;
+  font-size: 12px;
 }
 </style>
